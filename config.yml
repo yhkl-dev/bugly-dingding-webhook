@@ -1,3 +1,3 @@
 dingding:
-  dingdingurl: https://oapi.dingtalk.com/robot/send?access_token=
+  dingdingurl: https://oapi.dingtalk.com/robot/send?access_token=c471ab384eee2fc8f93ff623cb771320fc34761fbff68c19a915c57515b9decd
   accessToken: SEC4628409e0686692b24995644db822decbfb1fce4ffd91ace75c7e254ae6d70a9

@@ -17,20 +17,17 @@ func hmacSha256(stringToSign string, secret string) string {
 	return base64.StdEncoding.EncodeToString(h.Sum(nil))
 }
 
-func SendDingDingMessage(system, content string, dingdingURL string, secretKey string) {
-
+func SendDingDingMessage(title string, content string, dingdingURL string, secretKey string) {
 	timestamp := time.Now().UnixNano() / 1e6
 	stringToSign := fmt.Sprintf("%d\n%s", timestamp, secretKey)
 	sign := hmacSha256(stringToSign, secretKey)
 
-	data := `{"msgtype":"markdown","markdown":{"title":"%s","text":"### system: %s \n\n%s"},"at":{"atMobiles":[],"isAtAll":false}}`
-	fmtDat := fmt.Sprintf(data, system, system, content)
+	data := `{"msgtype":"markdown","markdown":{"title":"%s","text":"%s"},"at":{"atMobiles":[],"isAtAll":false}}`
+	fmtDat := fmt.Sprintf(data, title, content)
 
 	var jsonStr = []byte(fmtDat)
 	buffer := bytes.NewBuffer(jsonStr)
 	postURL := fmt.Sprintf("%s&timestamp=%d&sign=%s", dingdingURL, timestamp, sign)
-
-	fmt.Println(postURL)
 	request, err := http.NewRequest("POST", postURL, buffer)
 	if err != nil {
 		fmt.Println(err)
